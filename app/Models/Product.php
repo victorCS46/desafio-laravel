@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $table = 'product';
+
+    public $timestamps = false;
+
+    public function invoice(){
+        return $this->belongsTo(Invoice::class);
+    }
 }

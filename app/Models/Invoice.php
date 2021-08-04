@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+
+    protected $table = 'invoice';
+
+    public $timestamps = false;
+
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
 }

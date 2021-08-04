@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/product/{id}', [ProductController::class, 'getInvoiceTotalPrice']);
+Route::get('/product', [ProductController::class, 'getInvoiceGreater']);
+Route::get('/product2', [ProductController::class, 'getNameUpTo']);

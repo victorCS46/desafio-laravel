@@ -18,7 +18,7 @@ class CreateProductTable extends Migration
             $table->unsignedBigInteger('invoice_id');
             $table->string('name');
             $table->integer('quantity');
-            $table->float('price');
+            $table->float('price', 10, 2);
 
             $table->foreign('invoice_id')->references('id')->on('invoice');
         });
