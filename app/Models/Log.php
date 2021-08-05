@@ -9,7 +9,21 @@ class Log extends Model
 {
     use HasFactory;
 
-    public function logs() {
-        return $this->hasMany(Log::class);
+    public $timestamps = false;
+
+    protected $fillable = [
+        'task_id',
+        'comment',
+        'date',
+    ];
+
+    public function url()
+    {
+        return 'logs.store';
+    }
+
+    public function method()
+    {
+        return 'POST';
     }
 }
