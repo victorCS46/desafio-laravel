@@ -1,63 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Desafio 1
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**1. Obtener precio total de la factura.**
 
-## About Laravel
+    Invoice::find($id)
+            ->product()
+            ->sum('price');
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**2. todos id de las facturas que tengan productos con cantidad mayor a 100.**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    Invoice::whereHas('product', function($query){
+            $query->where('quantity', '>', 100);
+        })->get('id');
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**3. Obtener todos los nombres de los productos cuyo valor final sea superior a $1.000.000 CLP.**
 
-## Learning Laravel
+    Product::where('price', '>', 1000000)
+            ->get('name');
+            
+## Desafio 2
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Instalar PHP
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+# Windows
+# utilizar WAMP o Laragon
 
-## Laravel Sponsors
+## Linux(debian, ubuntu)
+sudo apt install php
+## Linux(Red Hat distros)
+sudo yum install php
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Instalar Composer
 
-### Premium Partners
+```
+## Descarga el instalador en el directorio actual con php.
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
+## Verifica si el hash del instalador es correcto y retorna un mensaje de validacion de lo contrario remueve el instalador.
+php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 
-## Contributing
+## Ejecuta el instalador.
+php composer-setup.php
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Remueve el instalador.
+php -r "unlink('composer-setup.php');
 
-## Code of Conduct
+## Mover composer.phar para poder utilizar composer globalmente.
+sudo mv composer.phar /usr/local/bin/composer
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Crear proyecto de laravel
+```
+## Crea el proyecto de laravel
+composer create-project laravel/laravel nombre-proyecto
 
-## Security Vulnerabilities
+## Nos movemos a la ruta del proyecto
+cd nombre-proyecto
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## levanta nuestro proyecto
+php artisan serve
+```
 
-## License
+## Desafio 4
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**¿qué es "Laravel Jetstream"?**
+
+Es un "scaffolding" para aplicaciones laravel que trae consigo desarrolladas tareas como Autenticacion, verificacion de email, manejo de sesion, login y registro, ahorradonos con esto parte del tiempo de nuestro proyecto.
+
+**¿qué permite "Livewire" a los programadores?**
+
+Livewire permite crear interfaces de usuarios dinamicas sin tener que recurrir a frameworks o librerias como Vue o React, pudiendo asi trabajar con nuestras vistas blade de laravel.

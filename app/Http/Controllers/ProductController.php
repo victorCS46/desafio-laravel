@@ -15,7 +15,7 @@ class ProductController extends Controller
             ->product()
             ->sum('price');
 
-        return view('product',['product' => $product]);
+        return $product;
     }
 
     public function getInvoiceGreater()
@@ -24,7 +24,7 @@ class ProductController extends Controller
             $query->where('quantity', '>', 100);
         })->get('id');
 
-        return view('product',['product' => $invoice]);
+        return $invoice;
     }
 
     public function getNameUpTo()
@@ -32,6 +32,6 @@ class ProductController extends Controller
         $product = Product::where('price', '>', 1000000)
             ->get('name');
 
-        return view('product',['product' => $product]);
+        return $product;
     }
 }
